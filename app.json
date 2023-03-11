@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "drills",
+    "slug": "drills",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "drills"
+}
