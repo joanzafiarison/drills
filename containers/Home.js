@@ -12,13 +12,19 @@ const Home =  ({ navigation }) => {
         <View>
             <Text style={styles.title}>Favoris</Text>
             <View style={styles.rowContainer}>
-                <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search")}>
+                <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search", {
+                    search : "mma"
+                })}>
                     <Text>MMA</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search")}>
+                <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search", {
+                    search : "boxe"
+                })}>
                     <Text>Boxe</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search")}>
+                <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search", {
+                    search :"fitness"
+                })}>
                     <Text>Fitness</Text>
                 </TouchableOpacity>
             </View>
