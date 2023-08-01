@@ -1,12 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View} from "react-native";
+import { StyleSheet, TouchableOpacity, Image, Text, View} from "react-native";
 import styleCard from "../styles/Card";
 
-const Card = ({ title }) => {
+const Card = ({ title, image , navigation, id }) => {
   return (
-    <View style={styleCard.basic_card}>
-        <Text>{title}</Text>
-    </View>
+    <TouchableOpacity 
+        style={styleCard.basicCard} 
+        onPress={()=>navigation.navigate("ExerciseDetail",{
+          id : id
+        }
+    )}>
+        <Image source={image} style={{width:200, height:200}} />
+        <Text style={styleCard.textOverlay}>{title}</Text>
+    </TouchableOpacity>
   )
 }
 

@@ -1,40 +1,51 @@
-import { StyleSheet, Text, FlatList, TouchableOpacity, TextInput,  View  } from 'react-native'
-import React , {useState, useEffect} from 'react'
+import { StyleSheet, Image, ScrollView, Text, FlatList, TouchableOpacity, TextInput,  View  } from 'react-native'
+import React , {useState, useEffect} from 'react';
+import Card from "../components/Cards";
+import mma_basic from "../images/mma_basic.webp";
+import striking from "../images/striking.jpg";
+import cardio_mma from "../images/cardio_mma.jpg";
+import boxing from "../images/boxing.jpg";
 
 const data = [
     {
         "name" :"MMA basic",
         "level" : 1,
         "sport":"MMA",
-        "id":1
+        "id":1,
+        "image" : mma_basic
     },
     {
         "name" :"MMA defensive",
         "level" : 1,
         "sport":"MMA",
-        "id":2
+        "id":2,
+        "image" : mma_basic
     },
     {
         "name" :"striking 101",
         "level" : 1,
         "sport":"MMA",
-        "id":4
+        "id":4,
+        "image" :striking
     },
     {
         "name" :"Boxe 101",
         "level" : 1,
         "sport":"BOXE",
-        "id":8
+        "id":8,
+        "image" :boxing
     },
     {
         "name" :"Cardio Basix",
         "level" : 1,
         "sport":"FITNESS",
-        "id":21
+        "id":21,
+        "image" :cardio_mma
     }
 ]
 
-function SearchExercise  ({ route }) {
+
+function SearchExercise  ({ route, navigation }) {
     const [term, setTerm] = useState('');
     const [result, setResult] = useState([])
     const [search, setSearch] = useState(route.params.search)
@@ -48,7 +59,7 @@ function SearchExercise  ({ route }) {
         }
     },[search])
     return (
-        <View style={{flexDirection:"column", alignItems:"center"}}>
+        <ScrollView>
             <View style={{flexDirection:"row"}}>
                 <TextInput placeholder="Entrainement, categorie ..." />
                 <TouchableOpacity>
@@ -57,10 +68,15 @@ function SearchExercise  ({ route }) {
             </View>
             <FlatList
                 data={result}
-                renderItem={({item}) => <Text>{item.name}</Text>}
+                renderItem={({item}) => <Card 
+                                            title={item.name} 
+                                            image={item.image}
+                                            id={item.id}
+                                            navigation={navigation}
+                                        />}
                 keyExtractor={item => item.id}
             />
-        </View>
+        </ScrollView>
     )
 }
 

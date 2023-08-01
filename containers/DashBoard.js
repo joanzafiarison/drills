@@ -99,7 +99,9 @@ const DashBoard = ({ navigation }) => {
                         </View>
                     ))}
                 </View>
-                <TouchableOpacity style={styles.button_dash} onPress={()=> navigation.navigate("Search")}>
+                <TouchableOpacity style={styles.button_dash} onPress={()=> navigation.navigate("Search",{
+                    search :"mma"
+                })}>
                     <Text>Ajouter une routine</Text>
                 </TouchableOpacity>
             </View>

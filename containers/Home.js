@@ -40,7 +40,7 @@ const Home =  ({ navigation }) => {
         </View>
         <View>
             <Text style={styles.title}>Routines a intégrer</Text>
-            <TouchableOpacity style={styles.basic_card} onPress={()=> navigation.navigate("ExerciseDetail")}>
+            <TouchableOpacity style={styles.basic_card} onPress={()=> navigation.navigate("CreateExercise")}>
                 <Text>Routine MMA</Text>
             </TouchableOpacity>
         </View>

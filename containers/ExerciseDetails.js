@@ -1,22 +1,29 @@
 import React from 'react';
 import { View, Text , TouchableOpacity} from "react-native";
+import Card from "../components/Cards";
+import quadri from "../images/quadri.webp";
+import epaules from "../images/epaule.jpg"; 
+import dos from "../images/dos.jpg";
 
 const stretch = [
     {
+        "id":4,
         "name" : "quadri",
-        "image" : "",
+        "image" : quadri,
         "rep": 3,
         "link":""
     },
     {
+        "id":2,
         "name" : "épaule",
-        "image" : "",
+        "image" : epaules,
         "rep":4,
         "link":""
     },
     {
+        "id":1,
         "name" : "dos",
-        "image" : "",
+        "image" : dos,
         "rep" :"5s",
         "link":""
     },
@@ -24,20 +31,23 @@ const stretch = [
 
 const exercises = [
     {
+        "id":1,
         "name" : "quadri",
-        "image" : "",
+        "image" : quadri,
         "rep": 3,
         "link":""
     },
     {
+        "id":1,
         "name" : "épaule",
-        "image" : "",
+        "image" : epaules,
         "rep":4,
         "link":""
     },
     {
+        "id":1,
         "name" : "dos",
-        "image" : "",
+        "image" : dos,
         "rep" :"5s",
         "link":""
     },
@@ -45,52 +55,56 @@ const exercises = [
 
 const warming_up = [
     {
+        "id":1,
         "name" : "quadri",
-        "image" : "",
+        "image" : quadri,
         "rep": "15s",
         "link":""
     },
     {
+        "id":1,
         "name" : "épaule",
-        "image" : "",
+        "image" : epaules,
         "rep":"10s",
         "link":""
     },
     {
+        "id":1,
         "name" : "dos",
-        "image" : "",
+        "image" : dos,
         "rep" :"8s",
         "link":""
     },
 ]
 
-const ExerciseDetails = () => {
+const ExerciseDetails = ({ route, navigation }) => {
+    const id  = route.params.id;
   return (
     <View>
-        <Text>Routine</Text>
-        <View style={{flexDirection: "row"}}>
+        <Text>Routine {id}</Text>
+        <View style={{flexDirection: "column", margin :"2%"}}>
             <Text>Echauffement</Text>
+            <View style={{flexDirection: "row"}}>
             {warming_up.map((ex) => (
-                <TouchableOpacity>
-                    <Text>{ex.name}</Text>
-                </TouchableOpacity>
+                <Card title={ex.name} navigation={navigation} id={ex.id} image={ex.image}/>
             ))}
+            </View>
         </View>        
-        <View style={{flexDirection: "row"}}>
+        <View style={{flexDirection: "column", margin :"2%"}}>
             <Text>Exercices</Text>
+            <View style={{flexDirection: "row"}}>
             {exercises.map((ex) => (
-                <TouchableOpacity>
-                    <Text>{ex.name}</Text>
-                </TouchableOpacity>
+                <Card title={ex.name} navigation={navigation}  id={ex.id} image={ex.image}/>
             ))}
+            </View>
         </View>
-        <View style={{flexDirection: "row"}}>
+        <View style={{flexDirection: "column", margin :"2%"}}>
             <Text>Etirements</Text>
+            <View style={{flexDirection: "row"}}>
             {stretch.map((ex) => (
-                <TouchableOpacity>
-                    <Text>{ex.name}</Text>
-                </TouchableOpacity>
+                <Card title={ex.name} navigation={navigation}   id={ex.id} image={ex.image}/>
             ))}
+            </View>
         </View>
     </View>
   )
