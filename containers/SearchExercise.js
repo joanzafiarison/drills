@@ -1,6 +1,7 @@
 import { StyleSheet, Image, ScrollView, Text, FlatList, TouchableOpacity, TextInput,  View  } from 'react-native'
 import React , {useState, useEffect} from 'react';
-import Card from "../components/Cards";
+import RoutineCard from "../components/RoutineCard";
+import SearchBar from '../components/SearchBar';
 import mma_basic from "../images/mma_basic.webp";
 import striking from "../images/striking.jpg";
 import cardio_mma from "../images/cardio_mma.jpg";
@@ -8,35 +9,35 @@ import boxing from "../images/boxing.jpg";
 
 const data = [
     {
-        "name" :"MMA basic",
+        "title" :"MMA basic",
         "level" : 1,
         "sport":"MMA",
         "id":1,
         "image" : mma_basic
     },
     {
-        "name" :"MMA defensive",
+        "title" :"MMA defensive",
         "level" : 1,
         "sport":"MMA",
         "id":2,
         "image" : mma_basic
     },
     {
-        "name" :"striking 101",
+        "title" :"striking 101",
         "level" : 1,
         "sport":"MMA",
         "id":4,
         "image" :striking
     },
     {
-        "name" :"Boxe 101",
+        "title" :"Boxe 101",
         "level" : 1,
         "sport":"BOXE",
         "id":8,
         "image" :boxing
     },
     {
-        "name" :"Cardio Basix",
+        "title" :"Cardio Basix",
         "level" : 1,
         "sport":"FITNESS",
         "id":21,
@@ -60,19 +61,13 @@ function SearchExercise  ({ route, navigation }) {
     },[search])
     return (
         <ScrollView>
-            <View style={{flexDirection:"row"}}>
-                <TextInput placeholder="Entrainement, categorie ..." />
-                <TouchableOpacity>
-                    <Text>Rech</Text>
-                </TouchableOpacity>
-            </View>
+            <SearchBar/>
             <FlatList
                 data={result}
-                renderItem={({item}) => <Card 
-                                            title={item.name} 
-                                            image={item.image}
-                                            id={item.id}
+                renderItem={({item}) => <RoutineCard
+                                            data={item} 
                                             navigation={navigation}
+                                            location="ExerciseDetail"
                                         />}
                 keyExtractor={item => item.id}
             />

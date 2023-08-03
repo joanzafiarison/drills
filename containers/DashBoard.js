@@ -1,7 +1,9 @@
 import React , {useState}from 'react';
 import { ScrollView, View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import { format_date } from "../utils/date_format";
 import NavBar from "../components/NavBar";
 import Graph from "../components/Graph";
+import styles from "../styles/Base";
 
 
 const userData = {
@@ -95,7 +97,7 @@ const DashBoard = ({ navigation }) => {
                     {userData.routines.map((routine) => (
                         <View>
                             <Text>{routine.name} ({routine.duration})</Text>
-                            <Text>{routine.date}</Text>
+                            <Text>{format_date(routine.date)}</Text>
                         </View>
                     ))}
                 </View>
@@ -114,27 +116,5 @@ const DashBoard = ({ navigation }) => {
     )
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      marginVertical:"2%"
-    },
-    block_dash : {
-      flexDirection :"column",
-      alignItems : "center",
-      borderWidth : 1,
-      borderBottomRadius : 2,
-      padding :10,
-      margin : 20
-    },
-    button_dash:{
-        backgroundColor : "#C4C4C4",
-        borderRadius:5,
-        minWidth:"10%",
-        width : 100
-    }
-  })
 
 export default DashBoard

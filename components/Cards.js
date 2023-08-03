@@ -2,16 +2,14 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Image, Text, View} from "react-native";
 import styleCard from "../styles/Card";
 
-const Card = ({ title, image , navigation, id }) => {
+const Card = ({  navigation, data, location }) => {
   return (
     <TouchableOpacity 
         style={styleCard.basicCard} 
-        onPress={()=>navigation.navigate("ExerciseDetail",{
-          id : id
-        }
-    )}>
-        <Image source={image} style={{width:200, height:200}} />
-        <Text style={styleCard.textOverlay}>{title}</Text>
+        onPress={()=>navigation.navigate(location, data)}
+    >
+        <Image source={data.image} style={{width:200, height:200}} />
+        <Text style={styleCard.textOverlay}>{data.title}</Text>
     </TouchableOpacity>
   )
 }

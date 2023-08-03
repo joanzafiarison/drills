@@ -6,7 +6,8 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.7",
@@ -17,12 +18,15 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.3",
+    "react-native-asset": "^2.1.1",
     "react-native-safe-area-context": "^4.7.1",
     "react-native-screens": "^3.23.0",
-    "react-native-svg": "^13.10.0"
+    "react-native-svg": "^13.10.0",
+    "react-native-vector-image": "^0.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "jest": "^29.6.2"
   },
   "private": true
 }
