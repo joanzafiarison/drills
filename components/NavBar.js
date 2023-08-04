@@ -35,6 +35,12 @@ function NavBar({ navigation }){
         >
           <Text style={[styles.buttonLabel , selectedValue == "Profil" && styles.selectedLabel]}>Profil</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleNavigation("Colors")}
+          style={[styles.button, selectedValue == "Colors" && styles.selected]}
+        >
+           <Text style={[styles.buttonLabel , selectedValue == "Profil" && styles.selectedLabel]}>Colors</Text>
+        </TouchableOpacity>
       </View>
     )
 }

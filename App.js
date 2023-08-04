@@ -14,6 +14,8 @@ import Objectives from './containers/HandleGoal';
 import Connexion from "./containers/Connexion";
 import ForgotPassword from './containers/ForgotPassword';
 import Register from './containers/Register';
+import Colors from './containers/Colors';
+import StartRoutine from './containers/StartRoutine';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,8 @@ export default function App() {
         <Stack.Screen name="Search" component={SearchExercise}/>
         <Stack.Screen name="Objectives" component={Objectives}/>
         <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+        <Stack.Screen name="Colors" component={Colors}/>
+        <Stack.Screen name="StartRoutine" component={StartRoutine}/>
       </Stack.Navigator>
     </NavigationContainer>
 

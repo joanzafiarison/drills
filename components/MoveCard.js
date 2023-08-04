@@ -7,7 +7,7 @@ function MoveCard ({data, location, navigation}) {
         <Image source={data.image} style={{width:50,height:50}}/>
         <View style={{margin:5}}>
             <Text>{data.title}</Text>
-            <Text style={{fontSize:11}}>02:00</Text>
+            <Text style={{fontSize:11}}>{data.duration} min</Text>
         </View>
       </TouchableOpacity>
     )
