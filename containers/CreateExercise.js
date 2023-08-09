@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React , {useState, useRef} from 'react';
+import React , {useState, useRef, useEffect} from 'react';
 import Icon from "react-native-vector-icons/FontAwesome";
 import {Picker} from "@react-native-picker/picker";
 import MuscleMap from '../components/MuscleMap';
@@ -15,6 +15,24 @@ const exercises = [
   }
 ]
 
+const meta = [
+  {
+    "name" :"MMA",
+    "id":1,
+    "desc":"Sport qui sollicite tous les muscles du corps, nécessite une explosivité et une endurance poussée"
+  },
+  {
+    "name" :"Lutte",
+    "id":2,
+    "desc":"Sport Lutte : ce sport sollicite le dos, les trapèzes et de bons muscles inférieurs"
+  },
+  {
+    "name" :"Boxe",
+    "id":3,
+    "desc":"Sport qui sollicite endurance et puissance au niveaux ddes épaules et des apuis"
+  }
+]
+
 function SucessScreen() {
   return(
     <View>
@@ -26,7 +44,13 @@ function MetaCreation() {
   const durationValue = [300, 600, 900];
   const [duration, setDuration] = useState(1) 
   const [trainingType, setTrainingType] = useState("mma");
+  const [metadata, setMetadata] = useState({});
   const pickerRef = useRef();
+
+  useEffect(()=> {
+    let training_data = meta.filter(it => it.name == trainingType);
+    setMetadata(training_data[0]);
+  },[trainingType])
 
   function open() {
     pickerRef.current.focus();
@@ -54,9 +78,9 @@ function MetaCreation() {
         </Picker>
         </View>
         <View style={{marginVertical:20, marginHorizontal:10}}>
-          <Text>Muscle sollicités</Text>
+          <Text>{meta.name}</Text>
           <View>
-            <Text style={{width:200}}>Sport Lutte : ce sport sollicite le dos, les trapèzes et de bons muscles inférieurs</Text>
+            <Text style={{width:200}}>{meta.desc}</Text>
             <MuscleMap/>
           </View>
         </View>
@@ -105,6 +129,9 @@ function PickExercises () {
           ))}
         </View>
       </View>
+      <TouchableOpacity>
+        <Text>REDUCER ADD?</Text>
+      </TouchableOpacity>
     </View>
   )
 }

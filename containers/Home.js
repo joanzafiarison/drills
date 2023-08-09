@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet,Image, Text, TouchableOpacity } from "react-native";
 import NavBar from "../components/NavBar";
-import Icon from "react-native-vector-icons/FontAwesome";
+//import Icon from "react-native-vector-icons/FontAwesome";
 
 import mma_icon from "../images/mma.png";
 import kickboxing_icon from "../images/kickboxing.webp";
@@ -40,15 +40,9 @@ const Home =  ({ navigation }) => {
                 <Text>Créer</Text>
             </TouchableOpacity>
         </View>
+        
         <View>
-            <Text style={styles.title}>Note du jour</Text>
-            <View style={styles.note_card}>
-                <Text>Petit pas petit pas, i acheve un tas</Text>
-            </View>
-        </View>
-        <View>
-            <Text style={styles.title}>Routines a intégrer</Text>
-            <TouchableOpacity style={styles.basic_card} onPress={()=> navigation.navigate("CreateExercise")}>
+            <TouchableOpacity style={styles.basic_card} onPress={()=> alert("ça marche")}>
                 <Text>Routine MMA</Text>
             </TouchableOpacity>
         </View>
