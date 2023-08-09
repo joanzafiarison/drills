@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text, Image, ScrollView, View } from 'react-native'
-import React , {useState} from 'react';
+import React , {useState, useEffect} from 'react';
 import Icon from "react-native-vector-icons/FontAwesome";
 import pallet from "../styles/Colors";
 
@@ -8,7 +8,17 @@ function StartRoutine ( {navigation, route}) {
     const steps = ["Echauffement", "Entraînement", "Endurance"];
     const [step, setStep] = useState(0);
     const [open, setOpen ] = useState([0,1,2]);
+    const [pause, setPause] = useState(true);
+    const [timer, setTimer] = useState(1);
     
+    useEffect(() => {
+        const interval_timer = setInterval(()=>{
+            setTimer((timer) => timer + 1);
+        },1000)
+        if (pause) {
+            clearInterval(interval_timer);
+        }
+    },[pause])
     function handleOpen(key){
         let open_keys = open;
         
@@ -27,9 +37,12 @@ function StartRoutine ( {navigation, route}) {
             <Text style={{fontSize:24}}>{title}</Text>
             <Text style={{fontSize:12}}>{steps[step]}</Text>
         </View>
-        <TouchableOpacity style={{alignItems :"center", justifyContent:"center", margin:20, width:50,height:50, borderRadius:50, backgroundColor:"red"}}>
-            <Text>Pause</Text>
-        </TouchableOpacity>
+        <View style={{alignSelf:"center"}}>
+            <Text style={{fontSize:35}}>{Math.round(timer/60)}:{timer % 60}</Text>
+            <TouchableOpacity style={{alignItems :"center", justifyContent:"center", margin:20, width:50,height:50, borderRadius:50, backgroundColor:pallet.primary[0]}} onPress={() => setPause(!pause)}>
+                <Text>{pause ? "Pause" : "Start"}</Text>
+            </TouchableOpacity>
+        </View>
         <View style={{alignItems:"center",marginVertical :30}}>
             {stretch && stretch.map((el, k)=>(
                 <TouchableOpacity

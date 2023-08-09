@@ -1,6 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet,Image, Text, TouchableOpacity } from "react-native";
 import NavBar from "../components/NavBar";
+import Icon from "react-native-vector-icons/FontAwesome";
+
+import mma_icon from "../images/mma.png";
+import kickboxing_icon from "../images/kickboxing.webp";
+import fitness from "../images/fitness.png";
 //import StyleCard from "../styles/Card";
 //import Cards from '../components/Card';
 
@@ -15,21 +20,24 @@ const Home =  ({ navigation }) => {
                 <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search", {
                     search : "mma"
                 })}>
-                    <Text>MMA</Text>
+                    <Image source={mma_icon} style={{width:100,height:100}}/>
+                    <Text style={{position:"absolute", backgroundColor :"white"}}>MMA</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search", {
                     search : "boxe"
                 })}>
-                    <Text>Boxe</Text>
+                    <Image source={fitness} style={{width:100,height:100}}/>
+                    <Text style={{position:"absolute", backgroundColor :"white"}}>Boxe</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.basic_card} onPress={() => navigation.navigate("Search", {
                     search :"fitness"
                 })}>
-                    <Text>Fitness</Text>
+                    <Image source={kickboxing_icon} style={{width:100,height:100}}/>
+                    <Text style={{position:"absolute", backgroundColor :"white"}}>Fitness</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={()=>navigation.navigate("CreateExercise")}>
-                <Text>Créer une routine</Text>
+                <Text>Créer</Text>
             </TouchableOpacity>
         </View>
         <View>
@@ -68,8 +76,8 @@ const Home =  ({ navigation }) => {
         flexDirection:"column",
         alignItems:"center",
         justifyContent: "center",
-        minHeight :100,
-        minWidth:100,
+        maxHeight :100,
+        maxWidth:100,
         backgroundColor :"grey",
         margin :10
     },

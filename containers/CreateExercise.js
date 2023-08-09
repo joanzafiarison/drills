@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React , {useState} from 'react';
+import React , {useState, useRef} from 'react';
 import Icon from "react-native-vector-icons/FontAwesome";
+import {Picker} from "@react-native-picker/picker";
 import MuscleMap from '../components/MuscleMap';
 import Card from "../components/Cards";
 import SearchBar from '../components/SearchBar';
@@ -22,6 +23,18 @@ function SucessScreen() {
   )
 }
 function MetaCreation() {
+  const durationValue = [300, 600, 900];
+  const [duration, setDuration] = useState(1) 
+  const [trainingType, setTrainingType] = useState("mma");
+  const pickerRef = useRef();
+
+  function open() {
+    pickerRef.current.focus();
+  }
+
+  function close() {
+    pickerRef.current.blur();
+  }
   return(
     <View>
         <View style={{alignItems : "center", margin : 30}}>
@@ -29,6 +42,16 @@ function MetaCreation() {
         </View>
         <View>
           <Text>Entrainement</Text>
+        <Picker
+          ref={pickerRef}
+          selectedValue={trainingType}
+          onValueChange={(itemValue, itemIndex) =>
+            setTrainingType(itemValue)
+          }>
+            <Picker.Item label="MMA" value="mma" />
+            <Picker.Item label="Boxe" value="boxe" />
+            <Picker.Item label="Fitness" value="fitness" />
+        </Picker>
         </View>
         <View style={{marginVertical:20, marginHorizontal:10}}>
           <Text>Muscle sollicités</Text>
@@ -39,6 +62,13 @@ function MetaCreation() {
         </View>
         <View>
           <Text>Duration</Text>
+          <View>
+            {durationValue.map((dur,k) => {
+              <TouchableOpacity onPress={()=> setDuration(k)}>
+                <Text style={{backgroundColor: duration === k? "green" :"grey"}}>{Math.round(dur/60)} m</Text>
+              </TouchableOpacity>
+            })}
+          </View>
         </View>
       </View>
   )

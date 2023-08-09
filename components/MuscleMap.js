@@ -17,22 +17,22 @@ function MuscleMap () {
     return (
       <View style={{backgroundColor:"green"}}>
         <Text>MuscleMap</Text>
-        <Svg width={500} height={400}>
+        <Svg width={300} height={300}>
              <G y={200}>
                 <Rect
                         x="150"
                         y="-120"
                         rx={2.5}
-                        width={50}
-                        height={50}
+                        width={20}
+                        height={20}
                         fill={color_intensity[muscles.head]}
                     />
                 <Rect
                         x="140"
                         y="-60"
                         rx={2.5}
-                        width={70}
-                        height={50}
+                        width={60}
+                        height={60}
                         fill={color_intensity[muscles.body]}
                         onPress={()=>alert("pressed body")}
                     />
