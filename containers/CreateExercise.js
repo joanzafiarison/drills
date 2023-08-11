@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, ScrollView, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, ScrollView, View , TextInput} from 'react-native'
 import React , {useState, useRef, useEffect} from 'react';
 import Icon from "react-native-vector-icons/FontAwesome";
 import {Picker} from "@react-native-picker/picker";
@@ -61,6 +61,7 @@ function MetaCreation() {
   const [duration, setDuration] = useState(1) 
   const [trainingType, setTrainingType] = useState("MMA");
   const [metadata, setMetadata] = useState({});
+  const [training_name, setTrainingName] = useState('Training')
   const pickerRef = useRef();
 
   useEffect(()=> {
@@ -78,13 +79,14 @@ function MetaCreation() {
   return(
     <View>
         <View style={{alignItems : "center", margin : 30}}>
-          <Text>Création d'une routine</Text>
+          <Text style={{fontSize:21}}>Création d'une routine</Text>
         </View>
         <View style={{flexDirection :"column", alignItems: "center"}}>
-          <Text>Entrainement</Text>
+          <TextInput style={{alignSelf:"flex-start", marginHorizontal : 5}} value={training_name} onChangeText={(text)=>setTrainingName(text)}/>
+          <Text>Choisir un entrainement</Text>
           <Picker
             ref={pickerRef}
-            style={{width:"60%", backgroundColor:"white"}}
+            style={{width:"60%", backgroundColor:"white", margin :5}}
             selectedValue={trainingType}
             onValueChange={(itemValue, itemIndex) =>
               setTrainingType(itemValue)
@@ -95,7 +97,7 @@ function MetaCreation() {
               <Picker.Item label="Lutte" value="Lutte" />
           </Picker>
         </View>
-        <View style={{flexDirection:"row", marginVertical:20, marginHorizontal:10}}>
+        <View style={{flexDirection:"row", alignItems :"center", marginVertical:20, marginHorizontal:10}}>
           <View>
             <Text>{metadata.name}</Text>
             <Text style={{width:200}}>{metadata.desc}</Text>
@@ -131,17 +133,19 @@ function PickExercises ({ navigation }) {
   }
   return(
     <View>
-      <Text>Pick Exercises</Text>
-      <Text>{selectedExercises.length}</Text>
+      <View style={{alignSelf : "center", margin :10}}>
+        <Text style={{fontSize:22}}>Sélection</Text>
+        <Text style={{fontSize:18}}>{steps[step]}</Text>
+        <Text>{selectedExercises.length} exercise(s)</Text>
+      </View>
       <View>
-        <Text>Exercices choisis</Text>
         <View style={{flexDirection:"row", margin:20, minHeight:150}}>
           {selectedExercises.map((ex,k) =>(
             <Card data={ex} key={k} height={100} width={100}/>
           ))}
         </View>
         <SearchBar/>
-        <View style={{flexDirection:"row", margin:20, minHeight:200}}>
+        <View style={{flexDirection:"row", margin:20, minHeight:100}}>
           {exercises.map((ex,k) =>(
             <View style={{position:"relative"}}>
               <Card data={ex} key={k} navigation={navigation} height={100} width={100} />
@@ -156,7 +160,7 @@ function PickExercises ({ navigation }) {
   )
 }
 
-function ScreenSwitcher({name}){
+function ScreenSwitcher({name, navigation}){
   switch (name){
     case "meta" :
       return <MetaCreation/>
@@ -164,19 +168,21 @@ function ScreenSwitcher({name}){
       return <PickExercises/>
     case "end":
       return <SucessScreen/>
+    case "return" : 
+      navigation.navigate("Home");
     default :
       return <View>
         <Text>No components found</Text>
       </View>
   }
 }
-function CreateExercise () {
+function CreateExercise ({navigation}) {
   const [step, setStep] = useState(0);
-  const step_names = ["meta", "pick","end"];
+  const step_names = ["meta", "pick","end","return"];
     return (
-      <ScrollView>
-        <ScreenSwitcher name={step_names[step]}/>
-        <View style={{flexDirection:"row", justifyContent:"space-around", margin:20}}>
+      <View>
+        <ScreenSwitcher name={step_names[step]} navigation={navigation}/>
+        <View style={{flexDirection:"row", justifyContent:"space-around",margin:20}}>
           <TouchableOpacity onPress={() => step > 0 && setStep(step -1)}>
             <Icon name="arrow-left" size={40}/>
           </TouchableOpacity>
@@ -185,7 +191,7 @@ function CreateExercise () {
           </TouchableOpacity>
         </View>
         
-      </ScrollView>
+      </View>
     )
 }
 

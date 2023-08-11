@@ -1,5 +1,6 @@
 import { StyleSheet, Image, ScrollView, Text, FlatList, TouchableOpacity, TextInput,  View  } from 'react-native'
-import React , {useState, useEffect} from 'react';
+import React , {useState, useEffect, useCallback} from 'react';
+import { getConnexionDB, createTable, getExerciseItem, saveExerciseItem } from "../services/db-services.ts"
 import RoutineCard from "../components/RoutineCard";
 import SearchBar from '../components/SearchBar';
 import mma_basic from "../images/mma_basic.webp";
@@ -50,27 +51,62 @@ function SearchExercise  ({ route, navigation }) {
     const [term, setTerm] = useState('');
     const [result, setResult] = useState([])
     const [search, setSearch] = useState(route.params.search)
-    useEffect(()=>{
+    useEffect(  async ()=>{
+        
         if(search !== ''){
-            let filtered = data.filter(el => el.sport === search.toUpperCase());
-            setResult(filtered);
+            //console.log(db)
+            
+            const getStoredData = async (data) => {
+
+                const db = await getConnexionDB();
+                await createTable(db , "exercise");
+                console.log(db);
+                
+                /*
+                try {
+                    let stored = await getExerciseItem(db, "exercise");
+                
+                    if ( stored.length){
+                        console.log("data " ,stored);
+                    }
+                    else {
+                        await saveExerciseItem(db, data);
+                        
+                    }
+                    return stored;
+                }
+                catch (error) {
+                     console.error(error);
+                     
+                }*/
+                let filtered = data.filter(el => el.sport === search.toUpperCase());
+                return filtered;
+            
+            }
+
+            const new_data = await getStoredData(data)
+            setResult(new_data);
+
+       
+
+            
         }
         else {
-            setResult(data)
+            setResult(data);
         }
     },[search])
     return (
         <ScrollView>
             <SearchBar/>
-            <FlatList
-                data={result}
-                renderItem={({item}) => <RoutineCard
-                                            data={item} 
-                                            navigation={navigation}
-                                            location="ExerciseDetail"
-                                        />}
-                keyExtractor={item => item.id}
+            {result.map( (item, k)=> (
+                <RoutineCard
+                    key={k}
+                    data={item} 
+                    navigation={navigation}
+                    location="ExerciseDetail"
             />
+            ))}
+            
         </ScrollView>
     )
 }

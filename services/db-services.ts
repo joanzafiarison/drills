@@ -8,7 +8,7 @@ export const getConnexionDB = async () => {
     return openDatabase({name : 'exercise-data.db', location :"default"});
 }
 
-export const createTable = async (db : SQLiteDatabase) => {
+export const createTable = async (db : SQLiteDatabase, tableName : String) => {
 
     const query = `CREATE TABLE IF NOT EXISTS ${tableName}(
         value TEXT NOT NULL
@@ -17,18 +17,19 @@ export const createTable = async (db : SQLiteDatabase) => {
     await db.executeSql(query);
 }
 
-export const getExeciseItem = async (db : SQLiteDatabase) : Promise<ExerciseItem[]> => {
+export const getExerciseItem = async (db : SQLiteDatabase, tableName : String) : Promise<ExerciseItem[]> => {
     try {
         const exerciseItem : ExerciseItem[] = [];
-        const results = await db.executeSql(`SELECT rowid as id,value FROM ${tableName}`);
+        const results = await db.executeSql(`SELECT rowid as id,title FROM ${tableName}`);
+        console.log("res ",results)
         results.forEach(result => {
-            for (let i = 0; i = results.rows.length; i++){
+            for (let i = 0; i = result.rows.length; i++){
                 exerciseItem.push(result.rows.item(i))
             }
         });
         return exerciseItem;
     } catch (error) {
-        console.error(error);
+        //console.error(error);
         throw Error('Failed to get ExerciseItem');
     }
 }
@@ -36,7 +37,7 @@ export const getExeciseItem = async (db : SQLiteDatabase) : Promise<ExerciseItem
 export const saveExerciseItem = async (db : SQLiteDatabase, exerciseItems : ExerciseItem[]) => {
     const insertQuery =
     `INSERT OR REPLACE INTO ${tableName}(rowid, title, desc) values` +
-    exerciseItems.map(i => `(${i.id}, '${i.title}', '${i.desc}')`).join(',');
+    exerciseItems.map(i => `(${i.id}, '${i.title}', '${i.desc}', '${i.sport}', '${i.level}')`).join(',');
 
     return db.executeSql(insertQuery);
 }

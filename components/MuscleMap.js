@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Svg, G, Rect, Circle , Line, Text } from 'react-native-svg';
+import colors from "../styles/Colors";
 import React , {useState, useEffect} from 'react';
 
 
@@ -31,12 +32,12 @@ const intensityMap = {
 }
 function MuscleMap ({ sport }) {
     const [muscles , setMuscles] = useState({});
-    const color_intensity = ["grey", "brown" ,"orange","coral"];
+    const color_intensity = [colors.primary[5], colors.primary[1] ,colors.primary[7],colors.primary[3]];
     useEffect(() => {
         setMuscles(intensityMap[sport])
     });
     return (
-      <View style={{backgroundColor:"green",width:"60%"}}>
+      <View style={{backgroundColor:colors.secondary[4],width:"50%",height:250}}>
         <Text>MuscleMap</Text>
         <Svg width={300} height={300}>
              <G y={200}>

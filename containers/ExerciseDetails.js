@@ -1,5 +1,7 @@
 import React , {useState, useEffect} from 'react';
 import { ScrollView, View, Text , TouchableOpacity} from "react-native";
+import { Svg, G , Path} from 'react-native-svg';
+import fonts from "../styles/Fonts";
 import MoveCard from "../components/MoveCard";
 import quadri from "../images/quadri.webp";
 import epaules from "../images/epaule.jpg"; 
@@ -253,6 +255,8 @@ const ExerciseDetails = ({ route, navigation }) => {
     const [exerciseData, setExerciseData] = useState({});
     let total_duration = 0;
     let colors = pallet.primary;
+    const color_value = colors[Math.floor(Math.random()*colors.length)];
+
 
     useEffect(() => {
         let fetched_data = trainings.filter(tr => tr.id === id);
@@ -269,19 +273,34 @@ const ExerciseDetails = ({ route, navigation }) => {
         
     },[])
 
+    //<path d="M 10 10 H 90 V 90 H 10 L 10 10"/>
   return (
     <ScrollView>
         {Object.keys(exerciseData).length > 0 ?
             <View>
-            <View style={{alignItems :"center",justifyContent :"center",height:200,backgroundColor:colors[Math.floor(Math.random()*colors.length)]}}>
+            <View style={{alignItems :"center",justifyContent :"center",height:250,backgroundColor:color_value, position:"relative"}}>
                 <Text style={{fontFamily:"Roboto", fontWeight:"600",fontSize:22}}>{title}</Text>
+                <Svg style={{position :"absolute", bottom :"-5%",  backgroundColor: color_value}} height={"20%"} width={"100%"}>
+                    <Path
+                        d="M0,0
+                        h385
+                        q5,0 30,40
+                        v10
+                        h-450
+                        z"
+                        stroke={pallet.secondary[3]}
+                        fill={pallet.secondary[3]}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </Svg>
             </View>
             <View style={{flexDirection:"row", width:"100%",justifyContent:"space-around",marginVertical:30}}>
                 <Text>Difficulté 3</Text>
                 <Text>{total_duration} min.</Text>
             </View>
             <View style={{flexDirection: "column", marginVertical :"8%", marginHorizontal :"8%"}}>
-                <Text style={{fontSize:20, textDecorationLine:"underline"}}>Echauffement</Text>
+                <Text style={fonts.chapter}>Echauffement</Text>
                 <View >
                     {exerciseData.warm.map((ex) => (
                         <MoveCard data={ex} navigation={navigation} key={ex.id} location="MoveDetails"/>
@@ -289,27 +308,37 @@ const ExerciseDetails = ({ route, navigation }) => {
                 </View>
             </View>        
             <View style={{flexDirection: "column", marginVertical :"8%", marginHorizontal :"8%"}}>
-                <Text style={{fontSize:20, textDecorationLine:"underline"}}>Exercices</Text>
-                <View style={{flexDirection: "column", marginVertical :"8%", marginHorizontal :"8%"}}>
+                <Text style={fonts.chapter}>Exercices</Text>
+                <View>
                     {exerciseData.exercises.map((ex) => (
                         <MoveCard data={ex} navigation={navigation} key={ex.id} location="MoveDetails"/>
                     ))}
                 </View>
             </View>
             <View style={{flexDirection: "column", marginVertical :"8%", marginHorizontal :"8%"}}>
-                <Text style={{fontSize:20, textDecorationLine:"underline"}}>Etirements</Text>
+                <Text style={fonts.chapter}>Etirements</Text>
                 <View >
                     {exerciseData.stretch.map((ex) => (
                         <MoveCard data={ex} navigation={navigation} key={ex.id} location="MoveDetails"/>
                     ))}
                 </View>
             </View>
-            <TouchableOpacity
-                 style={{backgroundColor : pallet.primary[0], alignSelf :"center", margin :30,padding:5, width :100}}
-                 onPress={()=> navigation.navigate('StartRoutine', exerciseData)}
-                 >
-                <Text>Commencer</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection :"row", justifyContent:"space-around"}}>
+                <TouchableOpacity
+                    style={{backgroundColor : pallet.primary[0], alignSelf :"center", margin :30,padding:5, width :100}}
+                    onPress={()=> navigation.navigate('StartRoutine', exerciseData)}
+                    >
+                    <Text>Commencer</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{backgroundColor : pallet.primary[0], alignSelf :"center", margin :30,padding:5, width :100}}
+                    onPress={()=> navigation.navigate('AddRoutine',{ 
+                        id : 3
+                    })}
+                    >
+                    <Text>Ajouter</Text>
+                </TouchableOpacity>
+            </View>
             </View>
             :<View style={{alignItems :"center",margin :20}}>
                 <Text>Routine non définie</Text>
