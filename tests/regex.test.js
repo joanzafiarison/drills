@@ -7,7 +7,7 @@ let descReg = new RegExp(/(::)(\w+\s\w+)/);
 let variationReg = new RegExp(/\s?(\w+)\s?\//);
 
 
-test ("get link data", () => {
+test("get link data", () => {
     expect(link.match(linkReg)[0]).toBe('https://monsite.com');
 })
 

@@ -4,8 +4,12 @@ import { ExerciseItem } from "./models";
 enablePromise(true);
 const tableName = "exercise";
 
-export const getConnexionDB = async () => {
-    return openDatabase({name : 'exercise-data.db', location :"default"});
+export const getConnexionDB = async (dbName :string, locationPath  :string) => {
+    return openDatabase({
+        name : dbName,
+        location :"default",
+        createFromLocation : locationPath
+    });
 }
 
 export const createTable = async (db : SQLiteDatabase, tableName : String) => {

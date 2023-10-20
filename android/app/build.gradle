@@ -238,6 +238,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    //For react native below 0.59implementation project(':react-native-sqlite-storage')
 }
 
 //use react-native-vector-icons

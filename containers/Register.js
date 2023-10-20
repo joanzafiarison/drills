@@ -54,7 +54,7 @@ function Register ( { navigation }) {
         <TouchableOpacity onPress={() => setStep(step + 1)}>
             <Text>Valider</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setStep(step - 1)}>
+        <TouchableOpacity onPress={() => setStep(step - 1)} style={{backgroundColor : "green"}}>
             <Text>Retour</Text>
         </TouchableOpacity>
       </View>

@@ -283,9 +283,10 @@ const ExerciseDetails = ({ route, navigation }) => {
                 <Svg style={{position :"absolute", bottom :"-5%",  backgroundColor: color_value}} height={"20%"} width={"100%"}>
                     <Path
                         d="M0,0
-                        h385
-                        q5,0 30,40
+                        h400
+                        q0,0 20,20
                         v10
+                        q0,0 20,20
                         h-450
                         z"
                         stroke={pallet.secondary[3]}
