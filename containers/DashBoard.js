@@ -69,8 +69,8 @@ const DashBoard = ({ navigation }) => {
                 <Text>Mes Objectifs</Text>
                 <Text>Semaine</Text>
                 <View>
-                    {userData.objectives.map((obj) => (
-                        <View>
+                    {userData.objectives.map((obj, k) => (
+                        <View key={k}>
                             <Text>{obj.description}</Text>
                             <Text>{obj.note}</Text>
                         </View>
@@ -83,8 +83,8 @@ const DashBoard = ({ navigation }) => {
             <View style={styles.block_dash}>
                 <Text>Notes</Text>
                 <View>
-                    {userData.notes.map((note) => (
-                        <View>
+                    {userData.notes.map((note, k) => (
+                        <View key={k}>
                             <Text>{note.note}</Text>
                         </View>
                     ))}
@@ -94,8 +94,8 @@ const DashBoard = ({ navigation }) => {
             <View style={styles.block_dash}>
                 <Text>Routines d'entraînement</Text>
                 <View>
-                    {userData.routines.map((routine) => (
-                        <View>
+                    {userData.routines.map((routine,k) => (
+                        <View key={k}>
                             <Text>{routine.name} ({routine.duration})</Text>
                             <Text>{format_date(routine.date)}</Text>
                         </View>

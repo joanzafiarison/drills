@@ -1,38 +1,48 @@
-import React , {useState, useEffect}from 'react';
+import React , {useState, useEffect, useCallback}from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { getConnexionDB } from "../services/db-services.ts";
+import { getConnexionDB, deleteTable } from "../services/db-services.ts";
+import { getUserItem, saveUserItem, createTable } from "../services/user-services.ts";
 import NavBar from "../components/NavBar";
 import styles from "../styles/Base";
 
+
+
 const Profile = ({ navigation }) => {
   const [userData, setUserData] = useState({});
+  const [users, setUsers] = useState([])
   const [connect, setConnection] = useState(true);
 
-  useEffect(async ()=>{
-    //get connexion
-    const db = await getConnexionDB("drills","~drills.db")
+  const loadDataCallback = useCallback ( async () => {
+    try {
+      const initData = [{id : 0, username:"bendo", email:"jack.ouille@gmail.com"}, {id : 1, username:"jackouille", email:"bendo@gmail.com"}]
+      //connexion
+      let db = await getConnexionDB("drills","~drills.db");
+      //init la db
+      //await deleteTable(db, "users");
+      //await createTable(db,"users");
+      //récupérer users
+      const storedUser = await getUserItem(db);
+      if(storedUser.length > 0){
+        // mapper au state
+        console.log("stored user", storedUser)
+        setUsers(storedUser)
+      }
+      else{
+        //ajouter dans la db et mapper au state
+        console.log("create users")
+        await saveUserItem(db, initData)
+        setUsers(initData)
+      }
 
+    }
+    catch (error){
+      console.error(error)
+    }
+  },[])
+
+  useEffect(()=>{
+    console.log("user found",users)
     //query Object
-    const ExecuteQuery = (sql, params = []) => new Promise((resolve, reject) => {
-      db.transaction((trans) => {
-        trans.executeSql(sql, params, (trans, results) => {
-          resolve(results);
-        },
-          (error) => {
-            reject(error);
-          });
-      });
-    });
-
-    async function CreateTable() {
-  
-      let userTable = await ExecuteQuery("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY NOT NULL, first_name VARCHAR(16), last_name VARCHAR(16), is_deleted INTEGER)", []);
-      console.log(userTable);
-    }
-    async function InsertUser() {
-      let singleInsert = await ExecuteQuery("INSERT INTO users (id, first_name, last_name, is_deleted) VALUES ( ?, ?, ?, ?)", [1, 'Infinite', 'Ability', 0]);
-      alert(JSON.stringify(singleInsert));
-    }
     let data = {
       "name" : "Joan",
       "surname" : "Zafiarison",
@@ -44,13 +54,22 @@ const Profile = ({ navigation }) => {
 
     }
     setUserData(data);
-    await CreateTable();
-    await InsertUser();
-  },[])
+    loadDataCallback();
+    
+  },[loadDataCallback])
     return(
       <View style={styles.container}>
         <NavBar navigation={navigation}/>
         <Text>Profil</Text>
+        {users && users.length > 0 ? 
+          <View>
+            <Text>Users DB</Text>
+            {users.map(el => (
+              <Text>{el.username}</Text>
+            ))}
+          </View>
+          : null 
+        }
         {Object.keys(userData).length > 0 && connect?
               <View style={{margin : "5%"}}>
                 <Text>Nom : {userData.surname} </Text>
