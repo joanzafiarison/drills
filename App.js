@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useContext} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./containers/Home";
@@ -16,6 +16,7 @@ import Register from './containers/Register';
 import Colors from './containers/Colors';
 import StartRoutine from './containers/StartRoutine';
 
+import { AuthProvider } from "./services/authContext.tsx";
 
 
 const Stack = createNativeStackNavigator();
@@ -23,22 +24,24 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="DashBoard" component={DashBoard} />
-        <Stack.Screen name="Profil" component={Profile} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Connexion" component={Connexion} />
-        <Stack.Screen name="ExerciseDetail" component={ExerciseDetails}/>
-        <Stack.Screen name="CreateExercise" component={CreateExercise}/>
-        <Stack.Screen name="MoveDetails" component={MoveDetails}/>
-        <Stack.Screen name="Planification" component={Planification}/>
-        <Stack.Screen name="Search" component={SearchExercise}/>
-        <Stack.Screen name="Objectives" component={Objectives}/>
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
-        <Stack.Screen name="Colors" component={Colors}/>
-        <Stack.Screen name="StartRoutine" component={StartRoutine}/>
-      </Stack.Navigator>
+      <AuthProvider>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home}/>
+          <Stack.Screen name="DashBoard" component={DashBoard} />
+          <Stack.Screen name="Profil" component={Profile} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Connexion" component={Connexion} />
+          <Stack.Screen name="ExerciseDetail" component={ExerciseDetails}/>
+          <Stack.Screen name="CreateExercise" component={CreateExercise}/>
+          <Stack.Screen name="MoveDetails" component={MoveDetails}/>
+          <Stack.Screen name="Planification" component={Planification}/>
+          <Stack.Screen name="Search" component={SearchExercise}/>
+          <Stack.Screen name="Objectives" component={Objectives}/>
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+          <Stack.Screen name="Colors" component={Colors}/>
+          <Stack.Screen name="StartRoutine" component={StartRoutine}/>
+        </Stack.Navigator>
+      </AuthProvider>
     </NavigationContainer>
 
   );

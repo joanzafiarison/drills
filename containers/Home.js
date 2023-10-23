@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useContext } from 'react'
 import { View, StyleSheet,Image, Text, TouchableOpacity } from "react-native";
 import NavBar from "../components/NavBar";
 //import Icon from "react-native-vector-icons/FontAwesome";
@@ -8,8 +8,11 @@ import kickboxing_icon from "../images/kickboxing.webp";
 import fitness from "../images/fitness.png";
 //import StyleCard from "../styles/Card";
 //import Cards from '../components/Card';
+import { AuthContext } from "../services/authContext.tsx"; 
 
 const Home =  ({ navigation }) => {
+    const context = useContext(AuthContext);
+    console.log("Home context",context)
     return(
       <View style={styles.container}>
         <NavBar navigation={navigation}/>
