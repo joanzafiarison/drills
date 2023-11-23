@@ -84,6 +84,7 @@ function MetaCreation() {
         <View style={{flexDirection :"column", alignItems: "center"}}>
           <TextInput style={{alignSelf:"flex-start", marginHorizontal : 5}} value={training_name} onChangeText={(text)=>setTrainingName(text)}/>
           <Text>Choisir un entrainement</Text>
+          <Text>Nom :</Text>
           <Picker
             ref={pickerRef}
             style={{width:"60%", backgroundColor:"white", margin :5}}
