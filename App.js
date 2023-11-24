@@ -15,6 +15,7 @@ import ForgotPassword from './containers/ForgotPassword';
 import Register from './containers/Register';
 import Colors from './containers/Colors';
 import StartRoutine from './containers/StartRoutine';
+import SecureStore from "./containers/SecureStore";
 
 import { AuthProvider } from "./services/authContext.tsx";
 
@@ -26,6 +27,7 @@ export default function App() {
     <NavigationContainer>
       <AuthProvider>
         <Stack.Navigator>
+          
           <Stack.Screen name="Home" component={Home}/>
           <Stack.Screen name="DashBoard" component={DashBoard} />
           <Stack.Screen name="Profil" component={Profile} />
@@ -46,3 +48,6 @@ export default function App() {
 
   );
 }
+
+
+//<Stack.Screen name="Secure" component={SecureStore}/>

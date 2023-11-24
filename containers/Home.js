@@ -12,7 +12,7 @@ import { AuthContext } from "../services/authContext.tsx";
 
 const Home =  ({ navigation }) => {
     const context = useContext(AuthContext);
-    console.log("Home context",context)
+    //console.log("Home context",context)
     return(
       <View style={styles.container}>
         <NavBar navigation={navigation}/>

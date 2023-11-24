@@ -1,5 +1,5 @@
 import React , { useState, createContext }  from "react";
-import { View } from "react-native";
+
 
 type Auth = {
   token : String

@@ -1,11 +1,25 @@
 import {StyleSheet, TouchableOpacity, Text, TextInput, View } from 'react-native'
 import React, {useState, useEffect} from 'react';
+import { storedUserSession, retrieveUserSession } from "../services/auth.ts";
 
+const URL_API= "http://192.168.195.128";
 
 function Connexion ({navigation}){
     const [ email , setMail] = useState('');
     const [ password, setPassword ] = useState('');
     
+    useEffect(() => {
+        alert("useEffect")
+        async function getToken () {
+            const token = await retrieveUserSession("token");
+            if (token) {
+              alert("found",token);
+            } 
+        }
+        getToken();
+        
+    },[]);
+
     const onPress = () => {
         
         let args = {
@@ -19,12 +33,17 @@ function Connexion ({navigation}){
                 password : password
             })
         }
-        //alert(JSON.stringify(args));
-        fetch("http://192.168.1.68:5000/auth", args)
-            .then(response => response.json())
-            .then(dt => alert(JSON.stringify(dt)))
+        fetch(`${URL_API}:5000/auth`, args)
+            .then(async (response) => {
+                //alert(response.headers.map.authorization);
+                alert(response.headers.map.authorization);
+                const token = await storedUserSession("token",response.headers.map.authorization);
+                alert(token);
+                //return response.json();
+            })
             .catch(error => alert(JSON.stringify(error)));
     }
+
     return (
       <View style={styles.mainCard}>
         <View style={{...styles.cardCentered, ...styles.shadowProp}}>
@@ -49,7 +68,10 @@ function Connexion ({navigation}){
                     <Text>Se connecter</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword") }>
-                    <Text style={{fontSize :8, color : "grey"}} >Mot de passe oublié</Text>
+                    <Text style={styles.littleFont} >Mot de passe oublié</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Register") }>
+                    <Text >Vous n'êtes pas membre ? Créer un compte</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -78,6 +100,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
     },
+    littleFont: {
+        fontSize :8,
+        color : "grey"
+    }
 });
 
 

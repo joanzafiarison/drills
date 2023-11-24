@@ -5,7 +5,13 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "d5f8908c-79cf-4b2a-a6b2-202f93e0682f"
+      }
+    }
   },
   "name": "drills"
 }
